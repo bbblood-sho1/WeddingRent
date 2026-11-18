@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeddingRent — прокат свадебных нарядов</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>WeddingRent</h1>
+            <p>Система управления прокатом свадебных нарядов</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="welcome">
+            <h2>Добро пожаловать!</h2>
+
+            <p>
+                WeddingRent — информационная система
+                для организации проката свадебных нарядов.
+            </p>
+
+            <p>
+                Система предназначена для управления каталогом,
+                записями на примерку, арендой, залогами и дефектами.
+            </p>
+        </section>
+
+        <section class="features">
+            <h2>Основные возможности системы</h2>
+
+            <div class="feature-list">
+                <div class="feature-card">
+                    <h3>Каталог нарядов</h3>
+                    <p>Просмотр свадебных платьев и других нарядов.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Запись на примерку</h3>
+                    <p>Планирование и учёт примерок клиентов.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Учёт залогов</h3>
+                    <p>Контроль сумм залога и операций с ними.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Учёт дефектов</h3>
+                    <p>Регистрация повреждений и состояния нарядов.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>WeddingRent — защищённая информационная система</p>
+    </footer>
+</body>
+</html>
