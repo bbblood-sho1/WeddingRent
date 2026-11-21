@@ -22,9 +22,12 @@
     {% endwith %}
     {% if current_user.is_authenticated %}
         <p>Вы вошли в систему!</p>
-        <p>Ваш логин: {{ current_user.username }}</p>
+    <p>Ваш логин: {{ current_user.username }}</p>
 
-        <a href="{{ url_for('logout') }}">Выйти из аккаунта</a>
+    <form method="POST" action="{{ url_for('logout') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit">Выйти из аккаунта</button>
+    </form>
     {% else %}
         <p>Вы не авторизованы.</p>
 

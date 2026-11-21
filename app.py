@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_wtf.csrf import CSRFProtect
 from db import db, get_database_url
 from models.audit_service import log_action
 from models.user import User, Role
@@ -14,6 +15,7 @@ from models.permissions import role_required
 app = Flask(__name__)
 # Секретный ключ для защиты сессий Flask
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+csrf = CSRFProtect(app)
 
 # Настройка подключения к PostgreSQL
 app.config["SQLALCHEMY_DATABASE_URI"] = get_database_url()
@@ -116,20 +118,16 @@ def login():
     return render_template("login.html")
 
 # Выход пользователя из системы
-@app.route("/logout")
+@app.route("/logout", methods=["POST"])
 @login_required
 def logout():
-
-    # Записываем выход до завершения авторизованной сессии
     log_action(
         action="LOGOUT",
         entity_type="user",
         entity_id=current_user.id,
         details={"message": "Пользователь вышел из системы"}
     )
-
     logout_user()
-
     flash("Вы вышли из системы.")
     return redirect(url_for("index"))
 
