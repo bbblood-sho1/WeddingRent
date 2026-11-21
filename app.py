@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from db import db, get_database_url
+from models.audit_service import log_action
 from models.user import User, Role
 from models.auth import register_user
 from flask_login import login_user, logout_user, login_required, current_user
@@ -99,8 +100,16 @@ def login():
         ):
             login_user(user)
 
-            flash("Вы успешно вошли в систему.")
-            return redirect(url_for("index"))
+            # Записываем успешный вход в журнал
+            log_action(
+                action="LOGIN",
+                entity_type="user",
+                entity_id=user.id,
+                details={"message": "Пользователь вошёл в систему"}
+        )
+
+        flash("Вы успешно вошли в систему.")
+        return redirect(url_for("index"))
 
         flash("Неверный логин или пароль.")
 
@@ -110,6 +119,14 @@ def login():
 @app.route("/logout")
 @login_required
 def logout():
+
+    # Записываем выход до завершения авторизованной сессии
+    log_action(
+        action="LOGOUT",
+        entity_type="user",
+        entity_id=current_user.id,
+        details={"message": "Пользователь вышел из системы"}
+    )
 
     logout_user()
 
