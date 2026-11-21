@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход — WeddingRent</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1>WeddingRent</h1>
+            <p>Вход в личный кабинет</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="welcome">
+
+            <h2>Авторизация</h2>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+
+                <p>
+                    <label>Логин:</label><br>
+                    <input type="text"
+                           name="username"
+                           required>
+                </p>
+
+                <p>
+                    <label>Пароль:</label><br>
+                    <input type="password"
+                           name="password"
+                           required>
+                </p>
+
+                <button type="submit">Войти</button>
+
+            </form>
+
+            <p>
+                <a href="/register">Зарегистрироваться</a>
+            </p>
+
+            <p>
+                <a href="/">На главную</a>
+            </p>
+
+        </section>
+    </main>
+
+</body>
+</html>
