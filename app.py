@@ -15,6 +15,10 @@ from models.permissions import role_required
 app = Flask(__name__)
 # Секретный ключ для защиты сессий Flask
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+# Настройки безопасности пользовательских сессий
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = False
 csrf = CSRFProtect(app)
 
 # Настройка подключения к PostgreSQL
