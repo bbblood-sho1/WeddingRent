@@ -7,6 +7,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from models.login_manager import login_manager
 from models.user import User
 from models.auth import verify_password
+from models.permissions import role_required
 
 # Создание приложения Flask
 app = Flask(__name__)
@@ -115,6 +116,26 @@ def logout():
     flash("Вы вышли из системы.")
     return redirect(url_for("index"))
 
+
+# Личный кабинет клиента
+@app.route("/client")
+@role_required("client")
+def client_dashboard():
+    return "Личный кабинет клиента"
+
+
+# Панель менеджера
+@app.route("/manager")
+@role_required("manager")
+def manager_dashboard():
+    return "Панель менеджера"
+
+
+# Панель администратора
+@app.route("/admin")
+@role_required("admin")
+def admin_dashboard():
+    return "Панель администратора"
 
 
 # Запуск приложения
